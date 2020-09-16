@@ -1,0 +1,29 @@
+<div *ngIf="!users" class="container">
+  <h1 class="display-4">No hay datos para mostrar</h1>
+  <button class="btn btn-success" (click)="newUser()">Crear usuario</button>
+</div>
+<div *ngIf="users" class="container">
+  <table class="table table-stripped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Foto</th>
+        <th scope="col">Nombre(s)</th>
+        <th scope="col">Apellido(s)</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users" (click)="selectUser(user)">
+        <td>
+          <img [src]="user.pic" class="rounded-circle" alt="Foto de perfil" width="100px" />
+        </td>
+        <td>{{user.name.first}}</td>
+        <td>{{user.name.last}}</td>
+        <td>{{user.email}}</td>
+        <td><button type="button" class="btn btn-danger" (click)="deleteUser(user)">Eliminar</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-success" (click)="newUser()">Crear usuario</button>
+</div>
+<users [user]="selectedUser"></users>

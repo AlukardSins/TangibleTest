@@ -1,0 +1,31 @@
+<div *ngIf="user" class="row">
+  <h1 class="display-4" *ngIf="user.id">Detalles del usuario</h1>
+  <h1 class="display-4" *ngIf="!user.id">Nuevo usuario</h1>
+</div>
+<div *ngIf="user" class="card">
+  <form>
+    <img class="card-img-top rounded-circle mx-auto d-block" style="width: 250px;" [src]="user.pic"
+      alt="Foto de perfil" />
+    <div class="form-group">
+      <input type="file" id="photo" name="pic" accept="image/*" (change)="detectFileChange($event)">
+    </div>
+    <div *ngIf="uploadProgress > 0 && uploadProgress < 100" class="progress">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+        aria-valuenow="{{uploadProgress}}" aria-valuemin="0" aria-valuemax="100"
+        [ngStyle]="{width: uploadProgress + '%'}">
+        {{uploadProgress}}%
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="firstName">Nombre(s) del usuario</label>
+      <input type="text" id="firstName" class="form-control" name="first" [(ngModel)]="user.name.first" required>
+      <label for="lastName">Apellido(s) del usuario</label>
+      <input type="text" id="lastName" class="form-control" name="last" [(ngModel)]="user.name.last" required>
+      <label for="userEmail">Correo electronico del usuario</label>
+      <input type="email" id="userEmail" class="form-control" name="email" [(ngModel)]="user.email" required>
+    </div>
+    <button class="btn btn-success" *ngIf="!user.id" (click)="createUser(user)">Crear</button>
+    <button class="btn btn-info" *ngIf="user.id" (click)="updateUser(user)">Actualizar</button>
+    <button class="btn btn-danger" *ngIf="user.id" (click)="deleteUser(user.id)">Eliminar</button>
+  </form>
+</div>
